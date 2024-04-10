@@ -1,5 +1,5 @@
 import express from "express";
-import "./database/runMigrations";
+import "../database/runMigrations";
 
 const app = express();
 const PORT = 3001;
