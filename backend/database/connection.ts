@@ -1,12 +1,15 @@
 import { Pool } from "pg";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const createConnection = async () => {
 
     const client = new Pool({
-        host: "localhost",
-        user: "postgres",
-        password: "1234",
-        database: "sem_orm",
+        host: process.env.HOST,
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE,
     });
 
     await client.connect();
@@ -18,6 +21,6 @@ export const createConnection = async () => {
     } catch (error) {
         console.error("Erro ao conectar ao banco de dados:", error);
         throw error; // Propaga o erro para quem chamou a função
-    }
+    };
 
-}
+};
