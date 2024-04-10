@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 import { createConnection } from "../../database/connection";
+import userService from "../services/UserService";
+import IUserInterface from "../models/Interfaces/IUserInterface";
 
+const postUser = async (req: Request, _res: Response) => {
+    const { name, email, password, user_type } = req.body;
+    await userService.postUser({ name, email, password, user_type });
+}
 
 export const createUser = async ( req: Request, res: Response ) => {
     
@@ -19,3 +25,11 @@ export const createUser = async ( req: Request, res: Response ) => {
     };
 
 }
+
+const userController = {
+    postUser,
+    createUser
+};
+
+
+export default userController;

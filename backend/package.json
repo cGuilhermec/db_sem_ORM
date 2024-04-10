@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
-    "migrate:generate":"ts-node-dev database/runMigrations.ts"
+    "migrate:generate": "ts-node-dev database/runMigrations.ts"
   },
   "keywords": [],
   "author": "",
