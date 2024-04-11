@@ -24,7 +24,7 @@ const getUsers = async () => {
   return user.rows;
 
 }
-
+     //getUserbyID
 const getUniqueUser = async ( id: string ) => {
 
   const client = await createConnection();

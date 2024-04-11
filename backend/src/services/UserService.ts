@@ -5,7 +5,14 @@ const postUser = async (user: IUserInterface) => {
   await userModel.createUser(user);
 }
 
-const getUsers = async () => {
+const getUsers = async (id: string) => {
+
+  const verifyRole = await getUniqueUser(id); 
+
+  if( !verifyRole.role === 'adm' ){
+    return { Message: "Usuario nao pode acessar." }
+  }
+
   return await userModel.getUsers(); 
 }
 
