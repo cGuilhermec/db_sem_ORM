@@ -3,32 +3,31 @@ import { createConnection } from "../../database/connection";
 import userService from "../services/UserService";
 import IUserInterface from "../models/Interfaces/IUserInterface";
 
-const postUser = async (req: Request, _res: Response) => {
+const postUser = async (req: Request, res: Response) => {
     const { name, email, password, user_type } = req.body;
     await userService.postUser({ name, email, password, user_type });
+
+    res.status(201).json(userService);
+};
+
+const getUsers = async (_req: Request, res: Response) => {
+    return res.status(200).json(await userService.getUsers());
 }
 
-export const createUser = async ( req: Request, res: Response ) => {
-    
-    const db = await createConnection();
+const  getUniqueUser = async (req: Request, res: Response) => {
 
-    const { name, email, password, user_type } = req.body;
+    const { id } = req.body;
 
-    try {
-        await db.query('INSERT INTO users (name, email, password, user_type) VALUES ($1, $2)', [name, email, password, user_type]);
-        res.status(201).json({ message: 'Usuário criado com sucesso' });
+    const user = userService.getUniqueUser(id);
 
-    } catch (error) {
-        
-        console.error('Erro ao criar usuário:', error);
-        res.status(500).json({ message: 'Erro interno do servidor' });
-    };
+    return res.status(200).json(user);
 
 }
 
 const userController = {
     postUser,
-    createUser
+    getUsers,
+    getUniqueUser
 };
 
 
