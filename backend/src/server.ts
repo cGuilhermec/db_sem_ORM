@@ -2,7 +2,9 @@ import express from "express";
 // import "../database/runMigrations";
 import dotenv from "dotenv";
 import { router } from "./routes/routes";
+import { createConnection } from "../database/connection";
 
+createConnection();
 dotenv.config();
 const app = express();
 app.use(express.json());

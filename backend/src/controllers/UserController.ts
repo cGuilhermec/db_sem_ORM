@@ -7,7 +7,7 @@ const postUser = async (req: Request, res: Response) => {
     const { name, email, password, user_type } = req.body;
     await userService.postUser({ name, email, password, user_type });
 
-    res.status(201).json(userService);
+    res.status(201).json({Message: "Usúario criado com sucesso!"});
 };
 
 const getUsers = async (_req: Request, res: Response) => {
@@ -16,18 +16,24 @@ const getUsers = async (_req: Request, res: Response) => {
 
 const  getUniqueUser = async (req: Request, res: Response) => {
 
-    const { id } = req.body;
+    const { id } = req.params;
 
-    const user = userService.getUniqueUser(id);
+    const user = await userService.getUniqueUser(id);
 
-    return res.status(200).json(user);
+    return res.status(200).json({Message: user});
 
+}
+
+const deleteAllUsers = async (_req: Request, res: Response) => {
+    await userService.delteAllUsers();
+    return res.status(200).json({Message: "Todos os usuarios foram deletados com sucesso!"})
 }
 
 const userController = {
     postUser,
     getUsers,
-    getUniqueUser
+    getUniqueUser,
+    deleteAllUsers
 };
 
 

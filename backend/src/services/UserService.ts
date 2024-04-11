@@ -9,14 +9,19 @@ const getUsers = async () => {
   return await userModel.getUsers(); 
 }
 
-const getUniqueUser = async (id: IUserInterface) => {
+const getUniqueUser = async (id: string) => {
   return await userModel.getUniqueUser(id);
+}
+
+const delteAllUsers = async () => {
+  return await userModel.deleteAllUsers();
 }
 
 const userService = {
   postUser,
   getUsers,
-  getUniqueUser
+  getUniqueUser,
+  delteAllUsers
 };
 
 export default userService;
