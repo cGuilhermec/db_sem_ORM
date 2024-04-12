@@ -1,20 +1,33 @@
 import IUserInterface from '../models/Interfaces/IUserInterface';
 import userModel from '../models/UserModel';
+import { hash } from "bcryptjs";
 
 const postUser = async (user: IUserInterface) => {
+
+  const verifyUser = await userModel.getUniqueUser(user.email);
+
+  if( verifyUser ) {
+    throw new Error(`O usuário com o email ${user.email} já está cadastrado.`);
+  };
+
+  const hash_password = await hash(user.password, 8);
+
+  user.password = hash_password;
+  
   await userModel.createUser(user);
-}
 
-const getUsers = async (id: string) => {
+};
 
-  const verifyRole = await getUniqueUser(id); 
+const getUsers = async (user: IUserInterface) => { 
 
-  if( !verifyRole.role === 'adm' ){
-    return { Message: "Usuario nao pode acessar." }
+  if( user.role === 'adm' ){
+    return await userModel.getUsers(user); 
+  } else {
+     throw new Error("Usuario nao e adm");
   }
 
-  return await userModel.getUsers(); 
-}
+  
+};
 
 const getUniqueUser = async (id: string) => {
   return await userModel.getUniqueUser(id);

@@ -2,7 +2,7 @@ interface IUserInterface {
   name: string;
   email: string;
   password: string;
-  user_type: string;
+  role: string;
 }
 
 export default IUserInterface;

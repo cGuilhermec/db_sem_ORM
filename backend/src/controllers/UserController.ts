@@ -1,18 +1,29 @@
 import { Request, Response } from "express";
-import { createConnection } from "../../database/connection";
 import userService from "../services/UserService";
-import IUserInterface from "../models/Interfaces/IUserInterface";
 
 const postUser = async (req: Request, res: Response) => {
-    const { name, email, password, user_type } = req.body;
-    await userService.postUser({ name, email, password, user_type });
+    const { name, email, password, role } = req.body;
+    
+    try {
+        await userService.postUser({ name, email, password, role });
+        res.status(201).json({ message: "Usuário criado com sucesso!" });
+    } catch (error) {
+        res.status(400).json({ message: "Usuário já existe." });
+    }
 
-    res.status(201).json({Message: "Usúario criado com sucesso!"});
 };
 
-const getUsers = async (_req: Request, res: Response) => {
-    return res.status(200).json(await userService.getUsers());
-}
+const getUsers = async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    try {
+        const users = await userService.getUsers(email);
+        return res.status(200).json(users);
+    } catch (error) {
+        res.status(403).json(`O usuário não é adm.`);
+    };
+
+};
 
 const  getUniqueUser = async (req: Request, res: Response) => {
 
