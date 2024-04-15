@@ -9,14 +9,14 @@ const postUser = async (user: IUserInterface, id: string) => {
     const verifyUser = await userModel.getUserbyEmail(user.email);
 
     if (verifyUser) {
-      return "Usuário com este email já existe.";
-    }
+      return `Usuário com o email ${user.email} já existe.`;
+    };
 
     const role = await userModel.getUserRole(id);
 
     if (role !== "adm") {
       return "Usuário não pode criar um usuário pois não é adm.";
-    }
+    };
 
     const hash_password = await hash(user.password, 8);
 
@@ -26,7 +26,7 @@ const postUser = async (user: IUserInterface, id: string) => {
     return true; // Usuário criado com sucesso
   } catch (error) {
     throw new Error("Erro ao criar usuário.");
-  }
+  };
 
 };
 
@@ -41,17 +41,22 @@ const getAllUsers = async (id: string) => {
     }
   } catch (error) {
     throw new Error("Erro ao obter usuários: ");
-  }
+  };
 
 };
 
 const getUserbyID = async (id: string) => {
-  return await userModel.getUserbyID(id);
-}
+  const user = await userModel.getUserbyID(id);
+
+  if(user) {
+    return user;
+  } else return 'Usuário não existe, ou foi digitado incorreto.';
+
+};
 
 const delteAllUsers = async () => {
   return await userModel.deleteAllUsers();
-}
+};
 
 const updateUserById = async (name: string, role:string, id: string) => {
 
@@ -74,14 +79,37 @@ const updateUserById = async (name: string, role:string, id: string) => {
 
   };
 
-}
+};
+
+const deleteUserById = async ( id: string, idUserDeleted: string ) => {
+
+  try {
+    
+    const verifyUser = await userModel.getUserRole(id);
+
+    if( verifyUser === "adm" ) {
+
+      await userModel.deleteUserById(idUserDeleted);
+
+      return `O usuário ${idUserDeleted} foi removido com sucesso`;
+
+    } else {
+      return 'Você não está autorizado a fazer isso! Procure um adm.'
+    };
+
+  } catch (error) {
+    return {Success: false, message: error};
+  };
+
+};
 
 const userService = {
   postUser,
   getAllUsers,
   getUserbyID,
   delteAllUsers,
-  updateUserById
+  updateUserById,
+  deleteUserById
 };
 
 export default userService;

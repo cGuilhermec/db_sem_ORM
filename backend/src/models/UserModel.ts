@@ -79,6 +79,18 @@ const updateUserById = async ( name: string, role: string, id: string ) => {
 
 };
 
+const deleteUserById = async ( id:string ) => {
+
+  const client = await createConnection();
+
+  const userDeleted = await client.query(
+    'DELETE FROM users WHERE id = $1', [id]
+  )
+
+  return userDeleted.rows[0];
+
+}
+
 const userModel = {
   createUser,
   getAllUsers,
@@ -86,7 +98,8 @@ const userModel = {
   deleteAllUsers,
   getUserRole,
   getUserbyEmail,
-  updateUserById
+  updateUserById,
+  deleteUserById
 };
 
 export default userModel;
