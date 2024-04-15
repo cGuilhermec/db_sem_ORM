@@ -1,4 +1,3 @@
-
 interface DecodedToken {
     userId: string;
 }
