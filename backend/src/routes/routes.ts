@@ -6,7 +6,9 @@ import UserAuthController from '../controllers/UserAuthController';
 import { authenticateToken } from '../middlewares/AuthMiddleware';
 
 const userController = new UserController(userService);
-const userAuthController = new UserAuthController(UserAuthService);
+const authServiceInstance = new UserAuthService();
+console.log("AuthServiceInstance:", authServiceInstance);
+const userAuthController = new UserAuthController(authServiceInstance);
 
 
 export const router = express.Router();
@@ -15,7 +17,7 @@ export const router = express.Router();
 
 //Rotas do User que exigem autenticação com JWT
 router.post('/att-user/:id', authenticateToken, userController.updateUserById);
-router.get('/users/:id', authenticateToken, userController.getAllUsers);
+router.get('/users/:id', userController.getAllUsers);
 router.get('/get-unique-user-by-id/:id', authenticateToken, userController.getUserbyID);
 router.delete('/delete-all-users', authenticateToken, userController.deleteAllUsers);
 router.post('/delete-user/:id', authenticateToken, userController.deleteUserById);

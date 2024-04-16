@@ -1,28 +1,29 @@
-import bcryptjs, { hash } from "bcryptjs";
-import IUserAuth from '../models/Interfaces/IUserAuth';
-import userModel from '../models/UserModel';
+import bcryptjs from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
+import IUserAuth from '../models/Interfaces/IUserAuth';
+import userModel from '../models/UserModel';
 
 dotenv.config();
 
 const MY_SECRET_KEY = process.env.MY_SECRET_KEY || '';
 
+class UserAuthService {
+  public async authenticate(user: IUserAuth) {
+    const userAuth = await userModel.getUserbyEmail(user.email);
 
-const UserAuthService = async ( user: IUserAuth ) => {
+    return userAuth;
 
-  const userAuth = await userModel.getUserbyEmail(user.email);
+    // if (!userAuth) return null;
 
-  if( !userAuth ) return null;
+    // const isValidPassword = await bcryptjs.compare(user.password, userAuth.password);
 
-  const isValidPasswor = await bcryptjs.compare(user.email, user.password);
+    // if (!isValidPassword) return null;
 
-  if ( !isValidPasswor ) return null;
+    // const token = jwt.sign({ id: userAuth.id, email: userAuth.email }, MY_SECRET_KEY);
 
-  const token = jwt.sign({ id: user.id, email: user.email }, MY_SECRET_KEY);
-
-  return token;
-
+    // return token;
+  };
 };
 
 export default UserAuthService;
