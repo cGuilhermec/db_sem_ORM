@@ -17,7 +17,7 @@ const getAllUsers = async () => {
   const client = await createConnection();
 
   const users = await client.query(
-    'SELECT id, name, email, role, created_at FROM users'
+    'SELECT id, name, email, role, is_deleted, created_at FROM users WHERE is_deleted = false'
   );
 
   return users.rows;
@@ -29,7 +29,7 @@ const getUserbyID = async ( id: string ) => {
   const client = await createConnection();
 
   const userUnique = await client.query(
-    'SELECT name, email, role FROM users WHERE id = $1', [id]
+    'SELECT name, email, role, is_deleted FROM users WHERE id = $1', [id]
   );
 
   return userUnique.rows[0];
@@ -41,7 +41,7 @@ const getUserbyEmail = async ( email: string ) => {
   const client = await createConnection();
 
   const userByEmail = await client.query(
-    'SELECT name, email, role FROM users WHERE email = $1', [email]
+    'SELECT name, email, role, is_deleted FROM users WHERE email = $1', [email]
   );
 
   return userByEmail.rows[0];
@@ -84,12 +84,12 @@ const deleteUserById = async ( id:string ) => {
   const client = await createConnection();
 
   const userDeleted = await client.query(
-    'DELETE FROM users WHERE id = $1', [id]
-  )
+    'UPDATE users SET is_deleted = true WHERE id = $1 RETURNING *', [id]
+  );
 
   return userDeleted.rows[0];
 
-}
+};
 
 const userModel = {
   createUser,

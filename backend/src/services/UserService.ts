@@ -63,7 +63,7 @@ const updateUserById = async (name: string, role:string, id: string) => {
   try {
     
     const userVerify = await userModel.getUserbyID(id);
-
+    
     if(!userVerify) {
       return 'Usuário não encontrado!';
     };
@@ -102,6 +102,10 @@ const deleteUserById = async ( id: string, idUserDeleted: string ) => {
   };
 
 };
+
+
+
+console.log(process.env.MY_SECRET_KEY);
 
 const userService = {
   postUser,
