@@ -34,7 +34,7 @@ const getAllUsers = async (req: Request, res: Response) => {
         const users = await userService.getAllUsers(id);
         return res.status(200).json(users);
     } catch (error) {
-        res.status(403).json(`O usuário não é adm.`);
+        res.status(403).json(`O usuário não é admmm.`);
     };
 
 };
