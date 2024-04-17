@@ -8,22 +8,19 @@ dotenv.config();
 
 const MY_SECRET_KEY = process.env.MY_SECRET_KEY || '';
 
-class UserAuthService {
-  public async authenticate(user: IUserAuth) {
-    const userAuth = await userModel.getUserbyEmail(user.email);
 
-    return userAuth;
+export const authenticate = async (user: IUserAuth): Promise<string | null> => {
+  console.log('User:', user);
+  const userAuth = await userModel.getUserbyEmail(user.email);
+  console.log('UserAuth:', userAuth);
 
-    // if (!userAuth) return null;
+  if (!userAuth) return null;
 
-    // const isValidPassword = await bcryptjs.compare(user.password, userAuth.password);
+  const isValidPassword = await bcryptjs.compare(user.password, userAuth.password);
 
-    // if (!isValidPassword) return null;
+  if (!isValidPassword) return null;
 
-    // const token = jwt.sign({ id: userAuth.id, email: userAuth.email }, MY_SECRET_KEY);
+  const token = jwt.sign({ id: userAuth.id, email: userAuth.email }, MY_SECRET_KEY);
 
-    // return token;
-  };
+  return token;
 };
-
-export default UserAuthService;

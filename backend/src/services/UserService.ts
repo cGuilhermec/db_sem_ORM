@@ -91,7 +91,7 @@ const deleteUserById = async ( id: string, idUserDeleted: string ) => {
 
       await userModel.deleteUserById(idUserDeleted);
 
-      return `O usuário ${idUserDeleted} foi removido com sucesso`;
+      return `O usuário foi desativado com sucesso`;
 
     } else {
       return 'Você não está autorizado a fazer isso! Procure um adm.'

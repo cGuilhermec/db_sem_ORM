@@ -41,7 +41,7 @@ const getUserbyEmail = async ( email: string ) => {
   const client = await createConnection();
 
   const userByEmail = await client.query(
-    'SELECT name, email, role, is_deleted FROM users WHERE email = $1', [email]
+    'SELECT name, password, email, role, is_deleted FROM users WHERE email = $1', [email]
   );
 
   return userByEmail.rows[0];
