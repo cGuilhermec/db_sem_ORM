@@ -1,26 +1,23 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "../pages/loginPage";
-import { PrivateRoute } from "./privateRoutes";
+import PrivateRoute from "./privateRoutes";
 import { Home } from "../pages/Home";
-import { Teste } from "../pages/Teste";
+import { AuthProvider } from "../context/auth";
+// import { Teste } from "../pages/Teste";
+// import { isAuthenticated } from "../context/auth";
 
 
 export const AppRouter = () => {
     return (
 
         <Router>
-            <Routes>
-                <Route path="/" element={<LoginPage />} />;
-                <Route path="/teste" element={<Teste />} />;
-                {/* só vai deixar entrar na conta se o user estiver logado, caso nao haja
-                mais o token ele nao deixa ficar logado */}
-                <Route path="/home" element={<PrivateRoute />}>
-                    <Route path="/home" element={<Home />} />
-                </Route>
-            </Routes>
-        </Router>
-        
-            
+            <AuthProvider>
+                <Routes>
+                    <Route path="/" element={<LoginPage />} />;
+                    <PrivateRoute path="/home" element={<Home />} />                
+                </Routes>
+            </AuthProvider>
+        </Router>       
 
-    )
+    );
 };

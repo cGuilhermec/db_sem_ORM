@@ -1,10 +1,11 @@
-import { AuthProvider } from "./context/auth";
+// import { AuthProvider } from "./context/auth";
+import React from "react";
 import { AppRouter } from "./routes/AppRouter";
 
 export default function App() {
   return (
-    <AuthProvider>
+    <React.StrictMode>
       <AppRouter />
-    </AuthProvider>
+    </React.StrictMode>
   );
 }

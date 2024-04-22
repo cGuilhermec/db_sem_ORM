@@ -5,6 +5,6 @@ import { User } from "./IUser";
 export interface AuthContextType {
     user: User | null; 
     Signed: boolean; 
-    SignIn: ({ email, password }: SignInProps) => Promise<void>;
+    signIn: ({ email, password }: SignInProps) => Promise<void>;
     signOut: () => {};
 };
