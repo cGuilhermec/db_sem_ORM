@@ -1,23 +1,17 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import LoginPage from "../pages/loginPage";
-import PrivateRoute from "./privateRoutes";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "../pages/Login";
 import { Home } from "../pages/Home";
-import { AuthProvider } from "../context/auth";
-// import { Teste } from "../pages/Teste";
-// import { isAuthenticated } from "../context/auth";
-
+import { PrivateRoute } from "./privateRoutes";
 
 export const AppRouter = () => {
-    return (
-
-        <Router>
-            <AuthProvider>
-                <Routes>
-                    <Route path="/" element={<LoginPage />} />;
-                    <PrivateRoute path="/home" element={<Home />} />                
-                </Routes>
-            </AuthProvider>
-        </Router>       
-
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<PrivateRoute />}>
+          <Route path="/home" element={<Home />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
 };

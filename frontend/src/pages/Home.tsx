@@ -1,10 +1,7 @@
-
 export const Home = () => {
-
-    return (
-
-        <div className="home">
-            <h1>Pagina inicial</h1>
-        </div>
-    )
+  return (
+    <div className="home">
+      <h1>Pagina de usuario padrao</h1>
+    </div>
+  );
 };

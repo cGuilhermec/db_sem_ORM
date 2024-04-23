@@ -48,11 +48,21 @@ const getUserbyEmail = async ( email: string ) => {
 
 };
 
-const getUserRole = async (id: string) => {
+const getUserRoleById = async (id: string) => {
   const client = await createConnection();
 
   const userUnique = await client.query(
     'SELECT role FROM users WHERE id = $1', [id]
+  );
+
+  return userUnique.rows[0].role;
+};
+
+const getUserRoleByEmail = async (email: string) => {
+  const client = await createConnection();
+
+  const userUnique = await client.query(
+    'SELECT role FROM users WHERE email = $1', [email]
   );
 
   return userUnique.rows[0].role;
@@ -96,7 +106,8 @@ const userModel = {
   getAllUsers,
   getUserbyID,
   deleteAllUsers,
-  getUserRole,
+  getUserRoleById,
+  getUserRoleByEmail,
   getUserbyEmail,
   updateUserById,
   deleteUserById

@@ -9,7 +9,7 @@ dotenv.config();
 const MY_SECRET_KEY = process.env.MY_SECRET_KEY || '';
 
 
-export const authenticate = async (user: IUserAuth): Promise<string | null> => {
+const authenticate = async (user: IUserAuth): Promise<string | null> => {
   console.log('User:', user);
   const userAuth = await userModel.getUserbyEmail(user.email);
   console.log('UserAuth:', userAuth);
@@ -24,3 +24,6 @@ export const authenticate = async (user: IUserAuth): Promise<string | null> => {
 
   return token;
 };
+export const UserAuthService = {
+  authenticate,
+}

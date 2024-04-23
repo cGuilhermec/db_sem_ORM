@@ -12,7 +12,7 @@ const postUser = async (user: IUserInterface, id: string) => {
       return `Usuário com o email ${user.email} já existe.`;
     };
 
-    const role = await userModel.getUserRole(id);
+    const role = await userModel.getUserRoleById(id);
 
     if (role !== "adm") {
       return "Usuário não pode criar um usuário pois não é adm.";
@@ -33,7 +33,7 @@ const postUser = async (user: IUserInterface, id: string) => {
 const getAllUsers = async (id: string) => {
   
   try {
-    const role = await userModel.getUserRole(id);
+    const role = await userModel.getUserRoleById(id);
     if (role === "adm") {
       return await userModel.getAllUsers();
     } else {
@@ -85,7 +85,7 @@ const deleteUserById = async ( id: string, idUserDeleted: string ) => {
 
   try {
     
-    const verifyUser = await userModel.getUserRole(id);
+    const verifyUser = await userModel.getUserRoleById(id);
 
     if( verifyUser === "adm" ) {
 
