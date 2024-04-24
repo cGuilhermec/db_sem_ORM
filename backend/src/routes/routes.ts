@@ -7,7 +7,6 @@ import { authenticateToken } from '../middlewares/AuthMiddleware';
 
 const userController = new UserController(userService);
 const authServiceInstance = new UserAuthService();
-console.log("AuthServiceInstance:", authServiceInstance);
 const userAuthController = new UserAuthController(authServiceInstance);
 
 
