@@ -1,12 +1,24 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import "../styles/loginPage.css";
 import { AuthContext } from "../interfaces/IAuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("teste@gmail.com");
   const [password, setPassword] = useState("123");
   const { SignIn, Signed } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem("@Auth:role");
+    if (storedRole) {
+      if (storedRole === "adm") {
+        navigate("/admPage");
+      } else {
+        navigate("/home");
+      }
+    }
+  }, [navigate]);
 
   const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,10 +29,6 @@ function Login() {
 
     await SignIn(data);
   };
-
-  if (Signed) {
-    return <Navigate to="/home" />;
-  }
 
   return (
     <div className="bloco">

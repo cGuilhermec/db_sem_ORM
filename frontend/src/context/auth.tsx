@@ -13,8 +13,9 @@ export const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
     const loadingStoreData = () => {
       const storageUser = localStorage.getItem("@Auth:user");
       const storageToken = localStorage.getItem("@Auth:token");
-      console.log(storageToken, storageUser);
-      if (storageToken && storageUser) {
+      const storageRole = localStorage.getItem("@Auth:role");
+      // console.log(storageToken, storageUser, storageRole);
+      if (storageToken && storageUser && storageRole) {
         try {
           const userObject: User = JSON.parse(storageUser);
           setUser(userObject);
@@ -37,18 +38,20 @@ export const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
         password,
       });
 
-      const { token, user } = response.data;
+      const { token, user, role } = response.data;
+
+      // console.log(userRole);
 
       if (response.data.error) {
         alert(response.data.error);
       } else {
         setUser(response.data.user);
-        console.log(response);
-        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        // console.log(response);
 
         // Salva o token e os dados do usuário no localStorage
         localStorage.setItem("@Auth:token", token);
-        localStorage.setItem("@Auth:user", user);
+        localStorage.setItem("@Auth:role", role);
+        localStorage.setItem("@Auth:user", JSON.stringify(user));
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error);

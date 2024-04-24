@@ -1,0 +1,341 @@
+@import '../../styles/color.css';
+
+body{
+    background-color: var(--cor-primaria-opaca);
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.3);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.inicio{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+}
+
+.final{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+
+    margin-right: 30px;
+
+    /* background-color: rgb(222, 218, 218); */
+    /* width: 25%; */
+}
+
+.logoBranca{
+    height: 80%;
+}
+
+button{
+    border: none;
+    background-color: transparent;
+}
+
+.btn,
+.btnhome,
+.btnntf{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 37px;
+    height: 37px;
+
+    margin-right: 12px;
+    
+}
+
+
+/*Esconde o botão na versão branca*/
+.home_btn_white,
+.ntf_btn_white{
+    display: none;
+}
+
+/*Muda a cor do botão*/
+.btnhome:hover,
+.btnntf:hover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #D25713;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+
+    width: 37px;
+    height: 37px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/*Esconde o Botão na versão preta*/
+.btnhome:hover .home_btn,
+.btnntf:hover .ntf_btn{
+    display: none;
+    cursor: pointer;
+}
+
+/*Mostra o botão na versão branca*/
+.btnhome:hover .home_btn_white,
+.btnntf:hover .ntf_btn_white{
+    display: block;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+
+
+/*--------Tamanho do icone-------*/
+
+.home_btn,
+.home_btn_white{
+    width: 17px;
+    height: 17px;
+}
+
+.ntf_btn,
+.ntf_btn_white{
+    width: 20px;
+    height: 22px;
+}
+
+/*------------------------------*/
+
+
+
+
+/*---------Botão Perfil---------*/
+
+.perfil{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+
+    position: relative;
+
+    height: 43px;
+
+    z-index: 100;
+}
+
+.ft_perfil{
+    border-radius: 30px;
+    width: 33px;
+    height: 33px;
+    border: 1px solid #D25713;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.ft_perfil img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.perfil:hover{
+    cursor: pointer;
+    background-color: #D25713;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+
+    height: 43px;
+
+    color: white;
+
+    transition: 0.3s;
+}
+
+.perfil.active{
+    background-color: #D25713;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+}
+
+.menu-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    top: 43.5px;
+}
+
+.menu.active {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+.menu{
+    opacity: 0;
+    margin-left: 27px; /*alinha o nav à esquerda do botão perfil*/
+    transform: translateY(calc(-100% )); /* Desloca a nav para cima, para ficar escondida */
+    transition: transform 0.6s ease, opacity 0.3s ease; /* Adiciona uma transição suave */
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* background: transparent;
+    backdrop-filter: blur(30px);
+    border: 2px solid rgb(255, 255, 255, .2); */
+
+    background-color: white;
+    border: 2px solid rgb(255, 255, 255, .2);
+
+    width: 80%;
+    height: 70px;
+
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+
+    margin-top: 13px;
+
+    transition: 0.3s;
+}
+
+nav button{
+    width: 100%;
+    height: 25px;
+    color: black;
+    
+    justify-content: space-between;
+    align-items: center;
+
+    display: flex;
+    flex-direction: row;
+}
+
+nav button:hover{
+    background-color: #D25713;
+    border-radius: 3px;
+    width: 100%;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.5);
+
+    color: white;
+
+    cursor: pointer;
+}
+
+nav a{
+    width: 95%;
+    margin-top: 5px;
+
+    text-decoration: none;
+}
+
+.btnconf, .btnconf_white{
+    width: 20px;
+    height: 20px;
+}
+
+.btnsair, .btnsair_white{
+    width: 15px;
+    height: 15px;
+}
+
+.btnconf_white, 
+.btnsair_white{
+    display: none;
+}
+
+.sairbtn:hover .btnsair,
+.confbtn:hover .btnconf{
+    display: none;
+}
+
+.sairbtn:hover .btnsair_white,
+.confbtn:hover .btnconf_white{
+    display: block;
+}
+
+ul{
+    list-style: none;
+}
+
+/*---------Final Btn Perfil---------*/
+
+
+
+
+/*----------DarkMode Btn-----------*/
+
+.dark-mode-toggle {
+    cursor: pointer;
+    padding: 0;
+    
+    
+    margin-right: 10px;
+    
+    border-radius: 5px;
+
+    width: 37px;
+    height: 37px;
+    
+    transition: 0.3s;
+    
+    background-color: white;
+}
+
+.dark-mode-moon {
+    background-color: #D25713;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+}
+
+.dark-mode-sun {
+    background-color: #393939;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+}
+
+.dark-mode-moon:hover img {
+    border-color: #D25713;
+}
+
+.dark-mode-sun:hover img {
+    border-color: #252525;
+}
+
+.dark-mode-toggle img {
+    width: 19px; /* Ajuste conforme necessário */
+    height: 19px; /* Ajuste conforme necessário */
+    
+}
+.dark-mode-toggle img.moon {
+    width: 15px; /* Ajuste conforme necessário */
+    height: 15px; /* Ajuste conforme necessário */
+}
+
+/*------Final DarkMode Btn-------*/
