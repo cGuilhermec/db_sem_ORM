@@ -103,9 +103,16 @@ const deleteUserById = async ( id: string, idUserDeleted: string ) => {
 
 };
 
+const getUserRoleByEmail = async (email: string) => {
+  try {
+    const verifyUserRole = await userModel.getUserRoleByEmail(email);
 
+    return `A role do ${email} é ${verifyUserRole}`;
 
-console.log(process.env.MY_SECRET_KEY);
+  } catch (error) {
+    return {Success: false, message: error};
+  }
+};
 
 const userService = {
   postUser,
@@ -113,7 +120,8 @@ const userService = {
   getUserbyID,
   delteAllUsers,
   updateUserById,
-  deleteUserById
+  deleteUserById,
+  getUserRoleByEmail
 };
 
 export default userService;

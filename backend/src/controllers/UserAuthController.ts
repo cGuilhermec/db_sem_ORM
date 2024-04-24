@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 import IUserAuth from "../models/Interfaces/IUserAuth";
 import {UserAuthService}  from "../services/UserAuthService";
+import jwt from 'jsonwebtoken'; 
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const MY_SECRET_KEY = process.env.MY_SECRET_KEY || '';
 
 export const loginUser = async (req: Request, res: Response) => {
     try {
@@ -15,11 +21,16 @@ export const loginUser = async (req: Request, res: Response) => {
 
         const token = await UserAuthService.authenticate(user);
 
-        console.log(token);
+        // console.log(token);
 
         if (token) {
             // Se o usuário for autenticado com sucesso, envie a resposta com o token
-            res.status(200).json({ message: 'Usuário autenticado com sucesso', token, user: user.email} );
+             const decodedToken: any = jwt.verify(token, MY_SECRET_KEY);
+             const role = decodedToken.role;
+            console.log(role);
+            console.log(token);
+            console.log(user.email);
+            res.status(200).json({ message: 'Usuário autenticado com sucesso', token, user: user.email, role });
         } else {
             // Se as credenciais forem inválidas, envie uma resposta de erro
             res.status(401).json({ message: 'Credenciais inválidas' });

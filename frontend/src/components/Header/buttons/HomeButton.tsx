@@ -1,5 +1,5 @@
 // @ts-ignore
-import homebtn from "../../../images/header/home.png";
+import homebtn from "../../../images/Header/home.png";
 // @ts-ignore
 import homebtn_white from "../../../images/header/home_white.png";
 

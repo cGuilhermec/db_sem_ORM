@@ -1,6 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { verify } from "jsonwebtoken";
-import DecodedToken from "../models/Interfaces/IDecodedToken";
 import Jwt from "jsonwebtoken";
 
 

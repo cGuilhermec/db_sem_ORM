@@ -20,7 +20,6 @@ const postUser = async (req: Request, res: Response) => {
         };
 
     } catch (error) {
-        console.log("Erro:", error);
         res.status(500).json({ message: "Ocorreu um erro interno." });
 
     };
@@ -73,11 +72,22 @@ const updateUserById = async (req: Request, res: Response) => {
         const userUpdate = await userService.updateUserById(name, role, id);
         return res.status(200).json({message: userUpdate});
     } catch (error) {
-        return res.status(500).json({message: `Ocorreu um erro ao tentar atualizar o usuárioÇ ${name}`});
+        return res.status(500).json({message: `Ocorreu um erro ao tentar atualizar o usuário: ${name}`});
     };
 
 
 };
+
+const getUserRoleByEmail = async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    try {
+        const getRoleUser = await userService.getUserRoleByEmail(email);
+        return res.status(200).json({message: getRoleUser});
+    } catch (error) {
+        return res.status(500).json({message: `Ocorreu um erro ao tentar pegar a role do usuário: ${email}`});
+    }
+}
 
 export const userController = {
     postUser,
@@ -85,5 +95,6 @@ export const userController = {
     getUserbyID,
     deleteAllUsers,
     updateUserById,
-    deleteUserById
+    deleteUserById,
+    getUserRoleByEmail
 };
