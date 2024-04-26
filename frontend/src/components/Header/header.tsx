@@ -3,7 +3,7 @@ import HomeButton from "./buttons/HomeButton";
 import NotificationButton from "./buttons/NotificationButton";
 
 // @ts-ignore
-import logo from "../../../images/Header/logo_visiona_preto.png";
+import logo from "../../../src/images/header/logo_visiona_preto.png";
 import Perfil from "./buttons/Perfil";
 import DarkMode from "./buttons/DarkMode";
 

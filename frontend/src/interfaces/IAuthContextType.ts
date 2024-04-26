@@ -7,5 +7,5 @@ export interface AuthContextType {
     Signed: boolean; 
     role?: string;
     SignIn: ({ email, password }: SignInProps) => Promise<void>;
-    signOut: () => {};
+    signOut: () => void;
 };

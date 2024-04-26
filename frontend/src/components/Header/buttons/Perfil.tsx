@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, FormEvent, useContext } from "react";
 // import { useOutsideClick } from "../../Header/useOutsidaClick";
 
 // @ts-ignore
@@ -11,6 +11,8 @@ import singout_white from "../../../images/header/singout_white.png";
 import configuration from "../../../images/header/configuration.png";
 // @ts-ignore
 import configuration_white from "../../../images/header/configuration_white.png";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../interfaces/IAuthContext";
 
 export default function Perfil() {
   const dropDownRef = useRef(null);
@@ -19,6 +21,13 @@ export default function Perfil() {
 
   const [nome, setNome] = useState("Usuário");
   const [perfilPhoto, setPerfilPhoto] = useState(defaultPhoto);
+  const { signOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    signOut();
+    navigate("/"); // Redirecionar para a página de login após o logout
+  };
 
   return (
     <div>
@@ -46,7 +55,7 @@ export default function Perfil() {
           </a>
 
           <a href="#">
-            <button className="sairbtn">
+            <button onClick={handleSignOut} className="sairbtn">
               Sair
               <img src={singout_white} alt="" className="btnsair_white" />
               <img src={singout} alt="" className="btnsair" />

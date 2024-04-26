@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 // @ts-ignore
-import moonbtn_white from "../../../images/Header/moon_white.png";
+import moonbtn_white from "../../../images/header/moon_white.png";
 // @ts-ignore
-import sunbtn_white from "../../../images/Header/sun_white.png";
+import sunbtn_white from "../../../images/header/sun_white.png";
 
 export default function DarkMode() {
   const [isDarkMode, setIsDarkMode] = useState(true);

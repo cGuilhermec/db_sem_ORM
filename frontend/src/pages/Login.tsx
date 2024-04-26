@@ -11,14 +11,19 @@ function Login() {
 
   useEffect(() => {
     const storedRole = localStorage.getItem("@Auth:role");
+    console.log("funcao if");
     if (storedRole) {
       if (storedRole === "adm") {
+        console.log("entrando na pag adm");
         navigate("/admPage");
+        console.log("entrou");
       } else {
+        console.log("entrando na pag home");
         navigate("/home");
+        console.log("entrou");
       }
     }
-  }, [navigate]);
+  }, [navigate, Signed]);
 
   const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
