@@ -1,7 +1,7 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import "../styles/loginPage.css";
 import { AuthContext } from "../interfaces/IAuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("teste@gmail.com");

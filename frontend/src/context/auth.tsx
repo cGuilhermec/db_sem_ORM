@@ -38,12 +38,12 @@ export const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
         password,
       });
 
-      const { token, user, role } = response.data;
+      const { token, user, role, message } = response.data;
 
-      // console.log(userRole);
+      console.log(message);
 
-      if (response.data.error) {
-        alert(response.data.error);
+      if (message) {
+        alert(message);
       } else {
         setUser(response.data.user);
         // console.log(response);

@@ -12,7 +12,7 @@ export const loginUser = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            throw new Error('Email e senha são obrigatórios.');
+            return res.status(400).json({ message: 'Email e senha são obrigatórios.' });
         }
 
         const user: IUserAuth = { email, password };
