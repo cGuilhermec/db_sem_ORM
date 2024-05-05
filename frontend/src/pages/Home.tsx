@@ -1,4 +1,5 @@
 import Header from "../components/Header/header";
+import "../styles/all.css";
 
 export const Home = () => {
   return (

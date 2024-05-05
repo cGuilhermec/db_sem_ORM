@@ -9,10 +9,10 @@ const postUser = async (req: Request, res: Response) => {
         const result = await userService.postUser({ name, email, password, role }, id);
 
         if (result === true) {
-            return res.status(400).json({ message: "Usuário criado com sucesso." });
+            return res.status(200).json({ message: "Usuário criado com sucesso." });
 
         } else if (typeof result === "string") {
-            res.status(400).json({ message: result });
+            res.status(409).json({ message: result });
 
         } else {
             res.status(500).json({ message: "Ocorreu um erro interno." });

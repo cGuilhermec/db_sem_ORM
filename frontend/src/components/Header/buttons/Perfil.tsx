@@ -11,8 +11,9 @@ import singout_white from "../../../images/header/singout_white.png";
 import configuration from "../../../images/header/configuration.png";
 // @ts-ignore
 import configuration_white from "../../../images/header/configuration_white.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../interfaces/IAuthContext";
+import RegisterEditUser from "../../../pages/RegisterEditUser";
 
 export default function Perfil() {
   const dropDownRef = useRef(null);
@@ -48,7 +49,7 @@ export default function Perfil() {
         >
           <a href="#">
             <button className="confbtn">
-              Meu Perfil
+              <Link to="/register">Meu Perfil</Link>
               <img src={configuration_white} alt="" className="btnconf_white" />
               <img src={configuration} alt="" className="btnconf" />
             </button>

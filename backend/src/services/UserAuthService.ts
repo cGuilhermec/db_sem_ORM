@@ -12,7 +12,6 @@ const MY_SECRET_KEY = process.env.MY_SECRET_KEY || '';
 const authenticate = async (user: IUserAuth): Promise<string | null> => {
   console.log('User:', user);
   const userAuth = await userModel.getUserbyEmail(user.email);
-  // console.log('UserAuth:', userAuth);
 
   if (!userAuth) return null;
 

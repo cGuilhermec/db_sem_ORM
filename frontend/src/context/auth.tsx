@@ -38,19 +38,19 @@ export const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
         password,
       });
 
-      const { token, user, role, message } = response.data;
+      const { token, user, role, message, userId } = response.data;
 
-      console.log(message);
-
-      if (message) {
+      if (message.erro) {
         alert(message);
       } else {
+        alert(message);
         setUser(response.data.user);
-        // console.log(response);
+        console.log(response);
 
         // Salva o token e os dados do usuário no localStorage
         localStorage.setItem("@Auth:token", token);
         localStorage.setItem("@Auth:role", role);
+        localStorage.setItem("@Auth:userId", userId);
         localStorage.setItem("@Auth:user", JSON.stringify(user));
       }
     } catch (error) {
