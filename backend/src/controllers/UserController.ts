@@ -66,10 +66,10 @@ const deleteUserById = async (req: Request, res: Response) => {
 
 const updateUserById = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { name, role } = req.body;
+    const { name, role, email } = req.body;
 
     try {
-        const userUpdate = await userService.updateUserById(name, role, id);
+        const userUpdate = await userService.updateUserById(name, role, email, id);
         return res.status(200).json({message: userUpdate});
     } catch (error) {
         return res.status(500).json({message: `Ocorreu um erro ao tentar atualizar o usuário: ${name}`});

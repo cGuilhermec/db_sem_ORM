@@ -1,31 +1,25 @@
 import { FormEvent, useState } from "react";
 import useCadastroUsuario from "../../context/useCadastroUsuario";
-import ErrorMessage from "../Error/Error"; // Importe o componente ErrorMessage
 
 const CadastrarUsuario = () => {
   const userId = localStorage.getItem("@Auth:userId");
-  const { nameRef, emailRef, roleRef, handleSubmit, alertMessage } =
-    useCadastroUsuario(userId || "");
-  const [showError, setShowError] = useState(false); // Estado para controlar a exibição do alerta
+  const { nameRef, emailRef, roleRef, handleSubmit } = useCadastroUsuario(
+    userId || ""
+  );
+  const [roleInput, setRoleInput] = useState("");
 
   return (
     <form className="container-data-1">
-      {alertMessage && showError && (
-        <ErrorMessage
-          message={alertMessage}
-          onClose={() => setShowError(false)}
-        />
-      )}
       <div className="inputs">
         <label htmlFor="" className="labels">
-          Nome:{" "}
+          Nome:
         </label>
         <input ref={nameRef} type="text" placeholder="Nome e Sobrenome" />
       </div>
 
       <div className="inputs">
         <label htmlFor="" className="labels">
-          E-mail:{" "}
+          E-mail:
         </label>
         <input
           ref={emailRef}
@@ -34,18 +28,30 @@ const CadastrarUsuario = () => {
         />
       </div>
 
-      <div className="inputs">
-        <label htmlFor="" className="labels">
-          Função:{" "}
-        </label>
-        <input ref={roleRef} type="text" />
+      <div className="input-funcao">
+        <label className="label-select">Função:</label>
+        <select
+          className="inputs"
+          value={roleInput}
+          ref={roleRef}
+          onChange={(e) => setRoleInput(e.target.value)}
+        >
+          <option value="adm" className="option-content">
+            Adm
+          </option>
+          <option value="revisor" className="option-content">
+            Revisor
+          </option>
+          <option value="editor" className="option-content">
+            Editor
+          </option>
+        </select>
       </div>
 
       <div className="btnsubmit">
         <button
           onClick={async (e: FormEvent) => {
             e.preventDefault();
-            setShowError(true); // Mostrar o alerta de erro antes de enviar o formulário
             await handleSubmit(); // Executar a função handleSubmit
           }}
         >

@@ -15,6 +15,7 @@ const useAllUsers = (userId: string) => {
           },
         });
         setUsers(response.data);
+        console.log(users);
       } catch (error) {
         console.error("Erro ao buscar usuários:", error);
       }

@@ -58,7 +58,7 @@ const delteAllUsers = async () => {
   return await userModel.deleteAllUsers();
 };
 
-const updateUserById = async (name: string, role:string, id: string) => {
+const updateUserById = async (name: string, role: string, email: string, id: string) => {
 
   try {
     
@@ -68,7 +68,7 @@ const updateUserById = async (name: string, role:string, id: string) => {
       return 'Usuário não encontrado!';
     };
 
-    await userModel.updateUserById(name, role, id);
+    await userModel.updateUserById(name, role, email, id);
 
     return { success: true, message: `Usuário ${name} foi atualizado com sucesso!` };
 

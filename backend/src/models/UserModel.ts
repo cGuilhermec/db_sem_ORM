@@ -6,7 +6,7 @@ import IUserInterface from "./Interfaces/IUserInterface";
 const createUser = async (user: IUserInterface): Promise<void> => {
 
   const client = await createConnection();
-
+  
   await client.query(
     'INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4)', [user.name, user.email, user.password, user.role]
   );
@@ -77,12 +77,12 @@ const deleteAllUsers = async ():Promise<void> => {
 
 };
 
-const updateUserById = async ( name: string, role: string, id: string ) => {
+const updateUserById = async ( name: string, role: string, email: string, id: string ) => {
 
   const client = await createConnection();
 
   const userUpdate = await client.query(
-    'UPDATE users SET name = $1, role = $2 WHERE id = $3', [name, role, id]
+    'UPDATE users SET name = $1, role = $2, email = $3 WHERE id = $4', [name, role, email, id]
   );
 
   return userUpdate.rows[0];

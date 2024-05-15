@@ -1,13 +1,14 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { api } from "../api/api";
-import "../styles/error.css";
+import { User } from "../interfaces/IUser";
 
-const useCadastroUsuario = (userId: string) => {
+const useUpdateUser = (id: string) => {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
   const roleRef = useRef<HTMLSelectElement | null>(null);
+  const [updatedUser, setUpdatedUser] = useState<User[]>([]);
 
-  const handleSubmit = async () => {
+  const handleSubmits = async () => {
     try {
       if (
         !nameRef.current?.value ||
@@ -30,15 +31,16 @@ const useCadastroUsuario = (userId: string) => {
         emailRef.current?.value ||
         roleRef.current?.value
       ) {
-        console.log("Entrou para cadastrar!");
+        // console.log(
+        //   `Dados do user que esta sendo atualizado: nome: ${nameRef.current?.value}, email: ${emailRef.current?.value}, role: ${roleRef.current?.value}`
+        // );
         const token = localStorage.getItem("@Auth:token");
         const response = await api.post(
-          `/new-user/${userId}`,
+          `/att-user/${id}`,
           {
             name: nameRef.current?.value,
-            email: emailRef.current?.value,
-            password: "123",
             role: roleRef.current?.value,
+            email: emailRef.current?.value,
           },
           {
             headers: {
@@ -46,15 +48,17 @@ const useCadastroUsuario = (userId: string) => {
             },
           }
         );
+
+        setUpdatedUser(response.data);
+        // console.log(updatedUser);
+        console.log(response.data);
         if (response.status === 200) {
-          console.log("Usuário cadastrado com sucesso");
-          alert("Usuário cadastrado com sucesso!");
-          console.log(response.data.message);
+          alert("Usuário atualizado com sucesso!");
         } else if (response.status === 409) {
           alert("Erro: " + response.data.message);
         } else {
           console.error("Erro:", response.data.message);
-          alert("Erro ao cadastrar usuário: " + response.data.message);
+          alert("Erro ao atualizar usuário: " + response.data.message);
         }
         return await response;
       }
@@ -66,8 +70,6 @@ const useCadastroUsuario = (userId: string) => {
       }
     }
   };
-
-  return { nameRef, emailRef, roleRef, handleSubmit };
+  return { nameRef, emailRef, roleRef, handleSubmits, updatedUser };
 };
-
-export default useCadastroUsuario;
+export default useUpdateUser;

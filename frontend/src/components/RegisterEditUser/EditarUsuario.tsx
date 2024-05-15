@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, FormEvent } from "react";
 // @ts-ignore
 import dropdown from "../../images/registerEditUser/dropdown.png";
 // @ts-ignore
 import dropdown_white from "../../images/registerEditUser/dropdown_white.png";
 import useAllUsers from "../../context/getAllusers";
 import { User } from "../../interfaces/IUser";
+import useUpdateUser from "../../context/useUpdateUser";
 
 export default function EditarUsuario() {
   // Estado para controlar se o dropdown está aberto ou fechado
@@ -20,24 +21,28 @@ export default function EditarUsuario() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const userId = localStorage.getItem("@Auth:userId");
   const users = useAllUsers(userId || "");
+  const id = selectedUser?.id;
+  const { nameRef, emailRef, roleRef, handleSubmits, updatedUser } =
+    useUpdateUser(id || "");
+
+  // Função para lidar com o clique fora do dropdown
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
 
   // Efeito para adicionar ouvinte de eventos para fechar o dropdown quando clicado fora dele
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    }
-
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [updatedUser]);
 
   // Função para lidar com a seleção de um usuário
   const handleUserSelect = (user: User) => {
@@ -49,29 +54,29 @@ export default function EditarUsuario() {
   };
 
   // Função para lidar com o envio das alterações
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (selectedUser) {
-      const updatedUsers = users.map((user) =>
-        user === selectedUser
-          ? { ...user, nome: nomeInput, email: emailInput, role: roleInput }
-          : user
-      );
-      // setUsers(updatedUsers);
-      // Atualiza o usuário selecionado com as informações alteradas
-      setSelectedUser({
-        ...selectedUser,
-        name: nomeInput,
-        email: emailInput,
-        role: roleInput,
-      });
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   if (selectedUser) {
+  //     const userID: string = selectedUser.id!;
+  //     const updatedUsers = users.map((user) =>
+  //       user === selectedUser
+  //         ? { ...user, name: nomeInput, email: emailInput, role: roleInput }
+  //         : user
+  //     );
+  //     // Atualiza o usuário selecionado com as informações alteradas
+  //     setSelectedUser({
+  //       ...selectedUser,
+  //       name: nomeInput,
+  //       email: emailInput,
+  //       role: roleInput,
+  //     });
 
-      // Limpa os inputs
-      setNomeInput("");
-      setEmailInput("");
-      setRoleInput("");
-    }
-  };
+  //     // Limpa os inputs
+  //     setNomeInput("");
+  //     setEmailInput("");
+  //     setRoleInput("");
+  //   }
+  // };
 
   console.log(users);
 
@@ -99,7 +104,7 @@ export default function EditarUsuario() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="form-edit-user">
+      <form className="form-edit-user">
         <div className="inputs">
           <label htmlFor="" className="labels">
             Nome:{" "}
@@ -108,6 +113,7 @@ export default function EditarUsuario() {
             type="text"
             placeholder="Nome e Sobrenome"
             value={nomeInput}
+            ref={nameRef}
             onChange={(e) => setNomeInput(e.target.value)}
           />
         </div>
@@ -120,21 +126,38 @@ export default function EditarUsuario() {
             type="text"
             placeholder="usuario@visiona.com.br"
             value={emailInput}
+            ref={emailRef}
             onChange={(e) => setEmailInput(e.target.value)}
           />
         </div>
-        <div className="inputs">
-          <label htmlFor="" className="labels">
-            Função:{" "}
-          </label>
-          <input
-            type="text"
+        <div className="input-funcao">
+          <label className="label-select">Função:</label>
+          <select
+            className="inputs"
             value={roleInput}
+            ref={roleRef}
             onChange={(e) => setRoleInput(e.target.value)}
-          />
+          >
+            <option value="adm" className="option-content">
+              Adm
+            </option>
+            <option value="revisor" className="option-content">
+              Revisor
+            </option>
+            <option value="editor" className="option-content">
+              Editor
+            </option>
+          </select>
         </div>
         <div className="btnsubmit">
-          <button>Confirmar</button>
+          <button
+            onClick={async (e: FormEvent) => {
+              e.preventDefault();
+              await handleSubmits();
+            }}
+          >
+            Confirmar
+          </button>
         </div>
       </form>
     </div>
